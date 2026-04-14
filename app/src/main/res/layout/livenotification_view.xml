@@ -1,28 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
-    android:padding="16dp">
+    android:layout_height="80dp"
+    android:background="#161616"
+    android:padding="12dp">
 
-    <TextView
-        android:id="@+id/notification_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!-- Left Side: Icon and Text Group -->
+    <ImageView
+        android:id="@+id/notification_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:src="@android:drawable/ic_dialog_info"
+        android:contentDescription="Icon" />
 
-    <!-- Change TextView to Chronometer -->
-    <Chronometer
-        android:id="@+id/notification_timer"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/notification_icon"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/notification_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Task"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Chronometer
+            android:id="@+id/notification_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#BB86FC"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Right Side: Action Buttons -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+
+        <!-- +5 Minute Button (Hidden by default, show when expired) -->
+        <Button
+            android:id="@+id/btn_add_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+5"
+            android:textSize="12sp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:visibility="visible" />
+
+        <!-- Checkmark/Done Button -->
+        <ImageButton
+            android:id="@+id/btn_done"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/checkbox_on_background"
+            android:contentDescription="Finish" />
+    </LinearLayout>
 
 </RelativeLayout>

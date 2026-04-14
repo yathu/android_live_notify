@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- ADD THIS LINE TO FIX THE ERROR -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -19,10 +26,29 @@
             android:theme="@style/Theme.MyApplication">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <!-- Register the Service -->
+        <service
+            android:name=".LiveUpdateService"
+            android:foregroundServiceType="specialUse"
+            android:exported="false">
+
+            <!-- Android 14+ requires a property tag for specialUse -->
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="This service maintains a live countdown timer and task status for user productivity." />
+        </service>
+
+        <!-- Register the Receiver -->
+        <receiver android:name=".NotificationReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="ACTION_DONE" />
+                <action android:name="ACTION_ADD_TIME" />
+            </intent-filter>
+        </receiver>
+
+    </application>
 </manifest>

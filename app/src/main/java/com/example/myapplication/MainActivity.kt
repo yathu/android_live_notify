@@ -6,11 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -73,7 +71,9 @@ fun ButtonExample(onClick: () -> Unit) {
     Column {
         Button(onClick = {
             // Mocking a countdown update
-            showLiveNotification(context, "Running Session");
+//            showLiveNotification(context, "Running Session");
+            // To start a 10-minute live session
+            LiveUpdateService.startService(context, "Coding Session", 10)
         }) {
             Text("Show Live Notification")
         }
